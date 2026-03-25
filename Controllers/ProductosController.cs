@@ -7,7 +7,7 @@ using MiTiendaMVC.Filters;
 
 namespace MiTiendaMVC.Controllers
 {
-    [LogActionFilter] // Reto 2: Aplicamos el filtro a todo el controlador
+    [LogActionFilter] //  Aplicamos el filtro a todo el controlador
     public class ProductosController : Controller
     {
         public ActionResult Index()

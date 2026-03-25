@@ -1,37 +1,53 @@
-﻿@model IEnumerable<string>
+﻿@using System.Web.Optimization
+@model IEnumerable<string>
 
 @{
-    Layout = null; // Para que no busque un diseño base que aún no creamos
+    Layout = null;
 }
 
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>Reto 1 - Razor</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MiTiendaMVC</title>
+    @Styles.Render("~/Content/css")
 </head>
 <body>
-    @* Mostrando datos de los 3 métodos de transferencia *@
-    <h1>@ViewData["TituloPagina"]</h1>
-    <h3>@ViewBag.MensajeInformativo</h3>
-    <p style="color: blue;">Estado: @TempData["EstadoConexion"]</p>
+    <div class="container">
+        <header>
+            @* Datos de ViewData y ViewBag *@
+            <h1>@ViewData["TituloPagina"]</h1>
+            <p class="mensaje-info">@ViewBag.MensajeInformativo</p>
+        </header>
 
-    <hr />
+        @* TempData con estilo de alerta *@
+        @if (TempData["EstadoConexion"] != null)
+        {
+            <div class="alert">
+                <strong>Sincronización:</strong> @TempData["EstadoConexion"]
+            </div>
+        }
 
-    @* Bloque Razor para mostrar la lista *@
-    <h2>Lista de Tareas Pendientes</h2>
+        <section>
+            <h2>Tareas en Agenda</h2>
 
-    @if (Model != null && Model.Any())
-    {
-        <ul>
-            @foreach (var tarea in Model)
+            @* Lógica Condicional *@
+            @if (Model != null && Model.Any())
             {
-                <li>@tarea</li>
+                <ul>
+                    @* Bucle foreach *@
+                    @foreach (var tarea in Model)
+                    {
+                        <li>@tarea</li>
+                    }
+                </ul>
             }
-        </ul>
-    }
-    else
-    {
-        <p>No hay tareas en la lista actualmente.</p>
-    }
+            else
+            {
+                <p class="empty">No hay tareas pendientes para hoy.</p>
+            }
+        </section>
+    </div>
 </body>
 </html>
